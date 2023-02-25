@@ -7,41 +7,22 @@ export default {
 
 // ****************************
 
-var dialpad = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-  [, 0,]
+
+var nearbyKeys = [
+  [4, 6],
+  [6, 8],
+  [7, 9],
+  [4, 8],
+  [3, 9, 0],
+  [],
+  [1, 7, 0],
+  [2, 6],
+  [1, 3],
+  [2, 4]
 ];
 
 function reachableKeys(startingDigit) {
-  var nearbyKeys = [];
-
-  for (let [rowIdx, row] of dialpad.entries()) {
-    let coldIdx = row.indexOf(startingDigit);
-
-    if (coldIdx != -1) {
-      for (let rowMove of [-2, -1, 1, 2]) {
-        for (let colMove of [-2, -1, 1, 2]) {
-          if (Math.abs(rowMove) != Math.abs(colMove)) {
-            if (
-              rowIdx + rowMove >= 0 &&
-              rowIdx + rowMove <= 3 &&
-              coldIdx + colMove >= 0 &&
-              coldIdx + colMove <= 2 &&
-              dialpad[rowIdx + rowMove][coldIdx + colMove] != undefined
-            ) {
-              nearbyKeys.push(
-                dialpad[rowIdx + rowMove][coldIdx + colMove]
-              )
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return nearbyKeys
+  return nearbyKeys[startingDigit]
 }
 
 function countPaths(startingDigit, hopCount) {
