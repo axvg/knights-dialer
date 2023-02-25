@@ -26,7 +26,14 @@ function reachableKeys(startingDigit) {
 }
 
 function countPaths(startingDigit, hopCount) {
-  return 0;
+  if (hopCount == 0) return 1;
+  var pathCount = 0
+
+  for (let digit of nearbyKeys[startingDigit]) {
+    pathCount += countPaths(digit, hopCount - 1)
+  }
+
+  return pathCount
 }
 
 function listAcyclicPaths(startingDigit) {
