@@ -37,5 +37,29 @@ function countPaths(startingDigit, hopCount) {
 }
 
 function listAcyclicPaths(startingDigit) {
-  return [];
+  var paths = []
+  var nextHops = nearbyKeys[startingDigit]
+
+  for (let nextHop of nextHops) {
+    let path = [startingDigit, nextHop]
+    followPath(path, paths) //beware of the side effects
+  }
+
+  return paths
+}
+
+function followPath(path, paths) {
+  var nextHops = nearbyKeys[path[path.length - 1]]
+  var pathForwardFound = false;
+
+  for (let nextHop of nextHops) {
+    if (!path.includes(nextHop)) {
+      pathForwardFound = true
+      let nextPath = [...path, nextHop]
+      followPath(nextPath, paths)
+    }
+  }
+  if (!pathForwardFound) {
+    paths.push(path) // mutating the paths array
+  }
 }
